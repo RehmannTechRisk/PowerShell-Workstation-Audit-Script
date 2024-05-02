@@ -39,3 +39,5 @@ netsh advfirewall show allprofiles | Out-File "$($env:USERPROFILE)\Desktop\\$env
 powercfg /A | Out-File "$($env:USERPROFILE)\Desktop\\$env:computername WS Audit\11.SleepMode.txt" ;
 
 ipconfig /all | Out-File "$($env:USERPROFILE)\Desktop\\$env:computername WS Audit\12.BridgedAdapters.txt"
+
+Get-WinEvent -FilterHashtable @{logname = ‘setup’} | Export-CSV "$($env:USERPROFILE)\Desktop\\$env:computername WS Audit\13.Patches"
