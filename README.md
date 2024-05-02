@@ -10,6 +10,7 @@
 
 \# Next, simply copy the entire blob of text below and paste into the PowerShell window.
 
+```
 New-Item -ItemType directory -Path "$($env:USERPROFILE)\Desktop\\$env:computername WS Audit" ;
 
 Net LocalGroup Administrators | Out-File "$($env:USERPROFILE)\Desktop\\$env:computername WS Audit\1.Local_Admins.txt" ;
@@ -41,3 +42,4 @@ powercfg /A | Out-File "$($env:USERPROFILE)\Desktop\\$env:computername WS Audit\
 ipconfig /all | Out-File "$($env:USERPROFILE)\Desktop\\$env:computername WS Audit\12.BridgedAdapters.txt"
 
 Get-WinEvent -FilterHashtable @{logname = ‘setup’} | Export-CSV "$($env:USERPROFILE)\Desktop\\$env:computername WS Audit\13.Patches.csv"
+```
