@@ -1,12 +1,11 @@
 $path = "C:\\temp\\$env:computername WS Audit"
 New-Item -ItemType directory -Path $path
 
-
 Net LocalGroup Administrators | Out-File "$path\1.Local_Admins.txt" ;
 
 systeminfo | Out-File "$path\2.SysteminfoandUpdates.txt" ;
 
-wmic qfe list | Out-File "$path\2.SysteminfoandUpdates.txt" -append ;
+Get-HotFix | Format-table -property Caption, HotFixID, InstalledOn | Out-File "$path\2.SysteminfoandUpdates.txt" -append ;
 
 gpresult -h "$path\3.WorkstationFollowedGPOs.html" ; 
 
@@ -18,7 +17,7 @@ vaultcmd /listschema | Out-File "$path\6.CredentialManager.txt" ;
 
 vaultcmd /list | Out-File "$path\6.CredentialManager.txt" -append ;
 
-wmic product get name,version | Out-File "$path\7.InstalledSoftware.txt" ;
+Get-CimInstance -ClassName Win32_Product | Select-Object Name, Version | Out-File "$path\7.InstalledSoftware.txt" ;
 
 net share | Out-File "$path\8.Shares.txt" ;
 
