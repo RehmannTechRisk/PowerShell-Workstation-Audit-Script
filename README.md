@@ -42,7 +42,11 @@ powercfg /A | Out-File "$path\11.SleepMode.txt" ;
 
 ipconfig /all | Out-File "$path\12.BridgedAdapters.txt"
 
-Get-WinEvent -FilterHashtable @{logname = ‘setup’} | Export-CSV "$path\13.Patches.csv"
+
+Get-WinEvent -FilterHashtable @{
+    LogName='Microsoft-Windows-WindowsUpdateClient/Operational'
+    Id=19
+} | Export-CSV "$path\13.Patches.csv"
 
 $zipPath = "$path.zip"
 Compress-Archive -Path $path -DestinationPath $zipPath
